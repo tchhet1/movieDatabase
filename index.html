@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+        <style>
+	        * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+	background-color: #ccf9f6;
+/* 	background-image: url("default.jpg"); */
+	background-size: cover;
+}
+
+.movies {
+  padding: 10px;
+  position: relative;
+  height: 100vh;
+}
+
+.searchBox {
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+}
+
+
+.display {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  background-color: #fff;
+  color: #000000;
+  opacity: 0.6;
+  }
+  
+ 
+  ul {
+	  list-style-type: none;
+  }
+  .liItems {
+	  
+/* 	  margin: 5px 0px; */
+  }
+ 
+ </style>
+ </head>
+	<body>
+<!--
+      <div class="weather">
+			<div class="inputBox">
+			  <input type="search" id="search" name ="search" placeholder="Enter City Name, State or Zip code ">
+			  <input type="Submit" id="submit">
+			
+			</div>
+			
+			<div class="display">
+			
+			  <p class="name" style="margin-top: 20px;"> </p>
+			  <p class="desc"></p>
+			  <p class="temp"></p>
+<!-- 			  <img src="" alt="weather image" id="imgIcon"> 
+			</div>
+	  </div>
+-->
+	  
+	  <div class="movies">
+  <div class="searchBox">
+    <input type="text" id="search" name="search" placeholder="Search movies"> 
+    <input type="submit" id="submit">
+  </div>
+  <div class="display">
+    <ul class="movieList">
+	    
+   </ul>
+    
+  </div>
+</div>
+			
+        <script>
+
+
+/*29c6212e49ed62a5bd8f2c72cd239af9*/
+//https://api.themoviedb.org/3/movie/{movie_id}?api_key=<<api_key>>&language=en-US
+
+
+const searchInput = document.querySelector('#search');
+const btn = document.querySelector('#submit');
+const ul = document.querySelector('.movieList');
+
+const title = document.querySelector('.title');
+btn.addEventListener('click', function(e){
+  e.preventDefault();
+ fetch('https://api.themoviedb.org/3/search/movie/?api_key=29c6212e49ed62a5bd8f2c72cd239af9&query='+searchInput.value)
+.then(response => response.json())
+ .then(data => {
+    //title.innerHTML = data;
+     //console.log(data);
+     //console.log(data.results[0].id);
+     
+     
+     ul.innerHTML = '';
+     
+     for(let i = 0; i < data.results.length; i++){
+	     
+	    
+	     
+	     //console.log(data.results[i].title);
+	     
+	     
+	     //printing the names of movies in a list 
+	     
+	     
+	      //console.log(data.results[i].id);
+	     //nested fetch to access movie details 
+	     fetch(`https://api.themoviedb.org/3/movie/${data.results[i].id}?api_key=29c6212e49ed62a5bd8f2c72cd239af9&language=en-US`)
+	     .then(res => res.json())
+	     .then(innerData => {
+		     console.log(innerData);
+		     
+		     ul.innerHTML += `<li class="liItems"> <b>Title:</b> ${innerData.title} </li>
+		     <li><b>Tagline:</b> ${innerData.tagline}</li>
+		     <p style="margin-bottom: 10px;"><b>Overview:</b> ${innerData.overview}</p>`
+		  
+		    
+		     })
+	     .catch(error => console.log(error))
+     }
+     ul.style.padding = '10px';
+     searchInput.value = '';
+     
+     
+  })
+  .catch((err) => {
+	  ul.style.padding = '0px';
+	  alert(err);
+	  
+	  })
+	  
+});
+
+
+
+
+
+
+
+
+    
+        </script>
+	</body>
+</html>
+
+
+
+

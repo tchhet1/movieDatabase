@@ -1,0 +1,39 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+	  background-color: #ccf9f6;
+	background-image: url("default.jpg");
+	background-size: cover;
+}
+
+.weather {
+  padding: 10px;
+  position: relative;
+  height: 100vh;
+}
+
+.inputBox {
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+}
+
+
+.display {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  background-color: #f1f1f1;
+  color: #000000;
+  opacity: 0.6;
+ 
+}
+
